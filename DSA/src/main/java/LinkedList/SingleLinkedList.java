@@ -34,49 +34,71 @@ public class SingleLinkedList {
 
         SingleLinkedList singleLinkedList = new SingleLinkedList();
 
-     //   singleLinkedList.createLinkedListManual();
-
         singleLinkedList.add(2);
         singleLinkedList.add(3);
         singleLinkedList.add(4);
         singleLinkedList.add(5);
         singleLinkedList.add(6);
 
-
-        Node node = singleLinkedList.head;
-        while(node.next != null){
-            System.out.println("data : "+ node.data);
-            node = node.next;
-        }
-        System.out.println("data : "+ node.data);
+        singleLinkedList.print(singleLinkedList.head);
 
         singleLinkedList.deleteAtIndex(2);
 
-
         System.out.println("After deleting at index 2");
 
-        node = singleLinkedList.head;
-        while(node.next != null){
-            System.out.println("data : "+ node.data);
-            node = node.next;
-        }
-        System.out.println("data : "+ node.data);
+        singleLinkedList.print(singleLinkedList.head);
 
         singleLinkedList.insertAtIndex(2, 4);
 
         System.out.println("After inserting at index 2");
 
-        node = singleLinkedList.head;
+        singleLinkedList.print(singleLinkedList.head);
+
+        Node element = singleLinkedList.getNode(singleLinkedList.head, 5);
+
+        if(element == null)
+            System.out.print("Element Not found");
+        else
+            System.out.print("Element found : "+ element +" data : "+ element.data);
+
+
+    }
+
+    private Node getNode(Node head, int data) {
+        /*
+        * traversing till the data value matches to it, if matches return it
+        * */
+
+        Node temp = head;
+        while(temp.next != null){
+            if (temp.data == data) {
+                return temp;
+            }
+            temp =temp.next;
+        }
+
+        if(temp.data == data){
+            return temp;
+        }
+        else {
+            return null;
+        }
+    }
+
+    private void print(Node node) {
+
         while(node.next != null){
             System.out.println("data : "+ node.data);
             node = node.next;
         }
         System.out.println("data : "+ node.data);
-
-
     }
 
     private void insertAtIndex(int index, int data) {
+        /* Creating a new node, traversing till index means ( 2 mean, 0, 1, 2 ->  1 iter, stopping before the index reach
+           adding next sequence of elements ref to newly created node
+           adding new node ref to existing sequence node
+        */
 
         Node node = head;
 
@@ -91,6 +113,13 @@ public class SingleLinkedList {
     }
 
     private void deleteAtIndex(int index) {
+
+        /*
+        *  Traverse before the element of index
+        *  assigning next ref == next of next ref of node
+        *  so middle element will be GC
+        * */
+
         Node node = head;
 
         for(int i=0; i<index-1; i++){
