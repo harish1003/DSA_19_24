@@ -50,10 +50,68 @@ public class DoublyLinkedList {
         dllist.printF(dllist.head);
         dllist.printB(dllist.tail);
 
+        System.out.println("Insert at index zero");
         dllist.insertAtIndex(0, -1);
         dllist.printF(dllist.head);
+        System.out.println("Insert at index end");
         dllist.insertAtIndex(5, -1);
         dllist.printF(dllist.head);
+
+        System.out.println("Deletion at index");
+
+        dllist.deleteAtIndex(2, dllist.head);
+
+        dllist.printF(dllist.head);
+
+        System.out.println("Deletion at index 0");
+
+        dllist.deleteAtIndex(0, dllist.head);
+
+        dllist.printF(dllist.head);
+
+        dllist.add(-1);
+        dllist.add(-1);
+        dllist.add(2);
+        dllist.add(3);
+        dllist.printF(dllist.head);
+
+        dllist.removeDuplicates(-1,dllist.head);
+
+        System.out.println("Remove duplicates ");
+
+        dllist.printF(dllist.head);
+    }
+
+    private void removeDuplicates(int data, node head) {
+        node newNodeHead = head;
+        int pointer = 0;
+        while(head != null){
+            if(head.data == data){
+                deleteAtIndex(pointer,newNodeHead);
+                pointer--;
+            }
+            head = head.next;
+            pointer++;
+        }
+        this.head = newNodeHead;
+    }
+
+    private void deleteAtIndex(int index, node head) {
+
+        if(index == 0){
+            head.next.prev = null;
+            this.head = head.next;
+            return;
+        }
+
+        node newNode = head;
+
+        for(int i=0;i<index;i++){
+            newNode = newNode.next;
+        }
+
+        newNode.prev.next = newNode.next;
+        newNode.next.prev = newNode.prev;
 
 
 
